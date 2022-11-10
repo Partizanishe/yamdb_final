@@ -46,7 +46,6 @@ jobs:
         with:
           push: true
           tags: partizanishe/yamdb_final:latest
-          context: ./api_yamdb
           file: ./api_yamdb/Dockerfile
 
   deploy:
