@@ -1,9 +1,9 @@
 import os
 from datetime import timedelta
 
-from dotenv import load_dotenv
+# from dotenv import load_dotenv
 
-load_dotenv(dotenv_path='../infra/.env')
+# load_dotenv(dotenv_path='../infra/.env')
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
