@@ -11,8 +11,8 @@ from rest_framework.pagination import PageNumberPagination
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_simplejwt.tokens import AccessToken
-
 from reviews.models import Category, Genre, Review, Roles, Title, User
+
 from .pagination import UsersPagination
 from .permissions import (AdminOrReadOnly, IsAuthorOrReadOnly, IsRoleAdmin,
                           IsRoleModerator)
