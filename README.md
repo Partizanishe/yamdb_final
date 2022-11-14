@@ -14,68 +14,61 @@ _**REST API для сервиса YaMDb**_
 
 ### Клонировать репозиторий
 ```
-git clone git@github.com:Partizanishe/infra_sp2.git
-```
-Перейти в папку infra_sp2/infra.
-
-Создать в ней файл .env с переменными окружения, необходимыми для работы приложения.
-
-_**Пример заполнения .env**_
+git clone git@github.com:Partizanishe/yamdb_final.git
 ```
 
+#### Выполните вход на свой удаленный сервер
+
+#### Установите docker на сервер
+
+```
+sudo apt install docker.io 
+```
+
+#### Установите docker-compose на сервер(актуальная версия [тут](https://github.com/docker/compose/releases))
+
+```
+sudo curl -L "https://github.com/docker/compose/releases/download/v2.6.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+```
+```
+sudo chmod +x /usr/local/bin/docker-compose
+```
+#### Скопируйте файлы docker-compose.yaml и nginx/default.conf из проекта на сервер
+
+#### Добавьте в Secrets GitHub переменные окружения для работы
+
+```
 DB_ENGINE=django.db.backends.postgresql
-
-DB_NAME=postgres
-
-POSTGRES_USER=postgres
-
-POSTGRES_PASSWORD=postgres
-
 DB_HOST=db
-
+DB_NAME=postgres
+DB_PASSWORD=postgres
 DB_PORT=5432
+DB_USER=postgres
+SECRET_KEY =<SECRET_KEY>
 
-SECRET_KEY=key
-```
-### Запустить docker compose
-```
+DOCKER_PASSWORD=<DOCKER_PASSWORD>
+DOCKER_USERNAME=<DOCKER_USERNAME>
 
-docker-compose up -d
-```
-### Выполнить последовательно команды
-```
-docker-compose exec web python manage.py migrate
+USER=<username для подключения к серверу>
+HOST=<IP сервера>
+PASSPHRASE=<пароль для сервера, если он установлен>
+SSH_KEY=<ваш SSH ключ(cat ~/.ssh/id_rsa)>
 
-docker-compose exec web python manage.py createsuperuser
-
-docker-compose exec web python manage.py collectstatic --no-input
-```
-Проект будет доступен по адресу http://localhost/
-
-## Заполнение базы данных
-Авторизоваться по адресу http://localhost/admin/, внести записи в базу данных через админку.
-
-## Создание резервной копии
-Бекап можно создать командой
-```
-docker-compose exec web python manage.py dumpdata > fixtures.json
-```
-## Восстановление данных из фикстур
-
-### Скопировать фикстуры в  контейнер
-```
-docker-compose cp fixtures.json web:/app                        
-docker-compose exec web python manage.py shell  
+TG_CHAT_ID=<ID чата, в который придет сообщение>
+TELEGRAM_TOKEN=<токен вашего бота>
 ```
 
-### Выполнить в открывшемся терминале:
+#### Запушить на Github. После успешного деплоя зайдите на боевой сервер и выполните команды
+
+#### Собрать статические файлы в STATIC_ROOT
+
 ```
-from django.contrib.contenttypes.models import ContentType
-ContentType.objects.all().delete()
-quit()
+docker-compose exec web python3 manage.py collectstatic --noinput
 ```
 
-### Импортировать данные из фикстур
+#### Создать и применить миграции
+
 ```
-docker-compose exec web python manage.py loaddata fixtures.json  
+docker-compose exec web python3 manage.py makemigrations
+docker-compose exec web python3 manage.py migrate --noinput
 ```
