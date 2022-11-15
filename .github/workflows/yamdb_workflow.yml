@@ -46,7 +46,6 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: True
-          context: ./api_yamdb/
           tags: partizanishe/yamdb_final:latest
 
   deploy:
