@@ -1,6 +1,6 @@
 # Проект YaMDb 
 ![yamdb_workflow](https://github.com/partizanishe/yamdb_final/actions/workflows/yamdb_workflow.yml/badge.svg)
-### Проект доступен по адресу: http://158.160.19.23/api/v1/
+### Проект доступен по адресу: http://84.201.140.111/api/v1/
 
 _**REST API для сервиса YaMDb**_
 
